@@ -20,6 +20,8 @@ public final class CachingOpenGraphRetriever {
     }
     let testing: TestingParameters?
     
+    private var retrievedURLs = Set<URL>()
+
     public init(
         name: String,
         appGroupID: String? = nil,
@@ -30,6 +32,9 @@ public final class CachingOpenGraphRetriever {
         do {
             let c: Cache<URL, OpenGraph> = try archiver.load()
             self.cache = c
+            if true == testing?.logDuplicateLoads {
+                self.retrievedURLs = Set(c.keys)
+        }
         }
         catch {
             self.cache = Cache()
@@ -37,9 +42,7 @@ public final class CachingOpenGraphRetriever {
         
         self.testing = testing
     }
-    
-    private var retrievedURLs = Set<URL>()
-    
+        
     public func retrieveOpenGraph(at url: URL) async throws -> OpenGraph {
         
         if let cached = cache.value(for: url) {
