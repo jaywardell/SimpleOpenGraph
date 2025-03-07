@@ -1,0 +1,15 @@
+{
+  "originHash" : "3c54068f251964609364376cec7fb6a5e8a04f247a55978e1cc8d24aa9a4e8a0",
+  "pins" : [
+    {
+      "identity" : "tagurit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywardell/TagUrIt",
+      "state" : {
+        "revision" : "9c5c186e2de5fcb310961297b1995757f24357d1",
+        "version" : "0.1.2"
+      }
+    }
+  ],
+  "version" : 3
+}
