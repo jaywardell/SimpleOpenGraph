@@ -16,7 +16,10 @@ public actor OpenGraphRetriever {
         
         do {
             let source = try await StringRetriever.retrieveString(from: url)
-            return try OpenGraph(html: source, verboseErrorLogging: logging)
+            if logging {
+                print("retrieving opengraph for \(url)")
+            }
+            return try OpenGraph(html: source, verboseLogging: logging)
         }
         catch {
             print("Error loading OpenGraph for page at \(url)")

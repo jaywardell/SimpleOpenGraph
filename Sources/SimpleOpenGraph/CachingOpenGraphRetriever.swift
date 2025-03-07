@@ -14,8 +14,22 @@ public final class CachingOpenGraphRetriever {
     private let archiver: CacheArchiver
     private let cache: Cache<URL, OpenGraph>
     
+    /// a type that can be passed in on init
+    /// which determines if any specific logging should be done
     public struct TestingParameters {
-        let logHTMLSource: Bool
+        
+        /// if true, then the the process of creating an OpenGraph instance will be logged
+        ///
+        /// this includes
+        /// * each meta tag found
+        /// * each OpenGraph tag that is put in the created `OpemGraph` instance
+        /// * any errors encountered,
+        /// * the full source of the html that was used if an error was encountered
+        let logParsing: Bool
+        
+        /// If true, then any time there is no cached OpenGraph instance
+        /// for an URL that's already been retrieved once,
+        /// there will be a log message
         let logDuplicateLoads: Bool
     }
     let testing: TestingParameters?
@@ -56,7 +70,7 @@ public final class CachingOpenGraphRetriever {
             Logger.opengraphRetrieval.warning("retrieved url \(url.absoluteString) for a second time")
         }
         
-        let retrieved = try await OpenGraphRetriever.fetcher.retrieveOpenGraph(at: url, logging: true == testing?.logHTMLSource)
+        let retrieved = try await OpenGraphRetriever.fetcher.retrieveOpenGraph(at: url, logging: true == testing?.logParsing)
         cache.insert(retrieved, for: url)
         
         if true == testing?.logDuplicateLoads {

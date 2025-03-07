@@ -48,7 +48,7 @@ public struct OpenGraph: Equatable, Codable, Sendable {
         self.tags = array.map { Tag(key: $0, value: $1) }
     }
     
-    init(html: String, verboseErrorLogging: Bool = false) throws {
+    init(html: String, verboseLogging: Bool = false) throws {
  
         func stripog(from string: String) -> String {
             guard let firstColon = string.firstIndex(of: ":") else { return "" }
@@ -57,8 +57,8 @@ public struct OpenGraph: Equatable, Codable, Sendable {
         
         let tags: [(String, String)] = MetaTag.all(in: html)
             .map { tag in
-                if verboseErrorLogging {
-                    print(tag)
+                if verboseLogging {
+                    print("found tag \(tag)")
                 }
                 let property = tag.attribute(for: "property")
                 let og = property?.value
@@ -71,12 +71,21 @@ public struct OpenGraph: Equatable, Codable, Sendable {
             }
         
         do {
-            try self.init(tags) 
+            if verboseLogging {
+                tags.forEach { tag in
+                    print("found opengraph tag \(tag)")
+                }
+            }
+
+            try self.init(tags)
         }
         catch {
             print("Error creating OpenGraph instance: \(error.localizedDescription)")
-            if verboseErrorLogging {
+            if verboseLogging {
+                print("===========================")
                 print(html)
+                print("===========================")
+                print()
             }
             throw error
         }
