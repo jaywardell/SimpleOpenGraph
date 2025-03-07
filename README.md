@@ -18,6 +18,10 @@ This is a retriever type in the style of the retrievers in `NetworkRetrievers`. 
 
 This is a retriever type like `OpenGraphRetriever`, but it maintains an on-disk cache of `OpenGraph` instances that have been loaded before. It uses `CacheCow` to maintain this cache. Its init takes an optional **Group ID** which can be used to save a shared cache for an App Group (e.g. to share a cache between an app and a widget or an app and an action extension) 
 
+## String.decodingHTMLEntities()
+
+This package makes use of other people's code to decode HTML entities from the Strings it encounters. I basically took the answer at https://stackoverflow.com/a/30141700 and combined it with reference material from a gist at https://gist.githubusercontent.com/x0rb0t/a6c190dbefdfedad71143ff7f8153588/raw/63727bf1c9cbe319d7a80a4af444acccaa856746/String+Html.swift, doing very minimal alterations along the way. It's available as a public API so that client code can have access to it (like my own code). 
+
 ## Dependencies
 
 This package depends on a few others:
@@ -31,6 +35,3 @@ This package depends on a few others:
         // to cache retrieved opengraph data
         .package(url: "https://github.com/jaywardell/CacheCow", .upToNextMajor(from: "0.2.0")),
 
-## String.decodingHTMLEntities()
-
-This package makes use of other people's code to decode HTML entities from the `String`s it encounters. I basically took the answer at https://stackoverflow.com/a/30141700 and combined it with reference material from a gist at https://gist.githubusercontent.com/x0rb0t/a6c190dbefdfedad71143ff7f8153588/raw/63727bf1c9cbe319d7a80a4af444acccaa856746/String+Html.swift, doing very minimal alterations along the way. It's available as a public API so that client code can have access to it. 
