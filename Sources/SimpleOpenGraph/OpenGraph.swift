@@ -48,7 +48,7 @@ public struct OpenGraph: Equatable, Codable, Sendable {
         self.tags = array.map { Tag(key: $0, value: $1) }
     }
     
-    init(html: String, verboseLogging: Bool = false) throws {
+    public init(html: String, verboseLogging: Bool = false) throws {
  
         func stripog(from string: String) -> String {
             guard let firstColon = string.firstIndex(of: ":") else { return "" }
@@ -183,12 +183,12 @@ extension OpenGraph {
 // MARK: -
 extension OpenGraph {
 
-    enum Error: Swift.Error, LocalizedError {
+    public enum Error: Swift.Error, LocalizedError {
         case notFound
         case noTitle
         case noURL
         
-        var errorDescription: String? {
+        public var errorDescription: String? {
             switch self {
                 
             case .notFound:
