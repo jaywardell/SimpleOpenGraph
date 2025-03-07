@@ -129,7 +129,7 @@ struct OpenGraph_Tests {
             let sut = try OpenGraph(html: htmlEncodedExample)
             
             // explicitly:
-            #expect(sut.title == sut.title?.htmlDecoded)
+            #expect(sut.title == sut.title?.decodingHTMLEntities())
             // for example:
             #expect(sut.title?.contains("$") == true)
         }

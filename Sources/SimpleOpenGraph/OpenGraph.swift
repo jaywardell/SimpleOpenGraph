@@ -67,7 +67,7 @@ public struct OpenGraph: Equatable, Codable, Sendable {
             }
             .compactMap { (property: String?, content: String?) in
                 guard let property, let content else { return nil }
-                return (stripog(from: property), content.htmlDecoded)
+                return (stripog(from: property), content.decodingHTMLEntities())
             }
         
         do {
@@ -113,8 +113,8 @@ public extension OpenGraph {
     // but for our purposes, we just care about the first valid one
     
     // NOTE: decodes html entities
-    var siteName: String? { self[Key.siteName]?.first?.htmlDecoded }
-    var title: String? { self[Key.title]?.first?.htmlDecoded }
+    var siteName: String? { self[Key.siteName]?.first?.decodingHTMLEntities() }
+    var title: String? { self[Key.title]?.first?.decodingHTMLEntities() }
     
     // according to https://ogp.me/#types (at the bottom of the section):
     // "Any non-marked up webpage should be treated as og:type website."
@@ -122,7 +122,7 @@ public extension OpenGraph {
     var type: String? { self[Key.type]?.first ?? Self.websiteType }
 
     // NOTE: decodes html entities
-    var description: String? { self[Key.description]?.first?.htmlDecoded }
+    var description: String? { self[Key.description]?.first?.decodingHTMLEntities() }
     var url: URL {
         // it has to be there because the init required it
         self[Key.url]!
