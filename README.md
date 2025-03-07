@@ -2,7 +2,7 @@
 
 This is just about the world's simplest framework for loading and reading [**Open Graph**](https://ogp.me) data from web pages.
 
-It's used by SkyMarks to load Open Graph data from `bsky.app`, and it's only been tested against that specific purpose.
+It's used by SkyMarks to load Open Graph data from `bsky.app`, and it's only been tested against that specific purpose. Still, I'm making it public in case anyone else could find use in a very simple swift Open Graph module.  
 
 ## OpenGraph
 
