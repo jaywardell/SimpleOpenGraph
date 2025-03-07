@@ -8,7 +8,7 @@
 import Foundation
 internal import NetworkRetrievers
 
-public actor OpenGraphRetriever {
+public struct OpenGraphRetriever {
               
     public static let fetcher = OpenGraphRetriever()
     
@@ -30,3 +30,5 @@ public actor OpenGraphRetriever {
         }
     }
 }
+
+extension OpenGraphRetriever : Sendable {}

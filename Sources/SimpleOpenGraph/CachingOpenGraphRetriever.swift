@@ -13,6 +13,7 @@ public final class CachingOpenGraphRetriever {
     
     private let archiver: CacheArchiver
     private let cache: Cache<URL, OpenGraph>
+    private let retriever: OpenGraphRetriever
     
     /// a type that can be passed in on init
     /// which determines if any specific logging should be done
@@ -42,6 +43,7 @@ public final class CachingOpenGraphRetriever {
         testing: TestingParameters? = nil
     ) {
         self.archiver = CacheArchiver(name: name, groupID: appGroupID)
+        self.retriever = OpenGraphRetriever()
         
         do {
             let c: Cache<URL, OpenGraph> = try archiver.load()
@@ -70,7 +72,7 @@ public final class CachingOpenGraphRetriever {
             Logger.opengraphRetrieval.warning("retrieved url \(url.absoluteString) for a second time")
         }
         
-        let retrieved = try await OpenGraphRetriever.fetcher.retrieveOpenGraph(at: url, logging: true == testing?.logParsing)
+        let retrieved = try await retriever.retrieveOpenGraph(at: url, logging: true == testing?.logParsing)
         cache.insert(retrieved, for: url)
         
         if true == testing?.logDuplicateLoads {
