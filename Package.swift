@@ -20,6 +20,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/jaywardell/TagUrIt", .upToNextMajor(from: "0.1.0")),
+        .package(url: "https://github.com/jaywardell/NetworkRetrievers", .upToNextMajor(from: "0.4.0")),
+        .package(url: "https://github.com/jaywardell/CacheCow", .upToNextMajor(from: "0.2.0")),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -27,8 +29,9 @@ let package = Package(
         .target(
             name: "SimpleOpenGraph",
             dependencies: [
-                .byName(name: "TagUrIt")
-//                .product(name: "TagUrIt", package: "TagUrIt")
+                "TagUrIt",
+                "NetworkRetrievers",
+                "CacheCow"
             ]
         ),
         .testTarget(

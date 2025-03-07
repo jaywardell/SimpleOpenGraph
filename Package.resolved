@@ -1,6 +1,24 @@
 {
-  "originHash" : "3c54068f251964609364376cec7fb6a5e8a04f247a55978e1cc8d24aa9a4e8a0",
+  "originHash" : "5235b59058fbf885c7ba4fa1ed941cca230313e67930cbed346d30d6e1bc03ba",
   "pins" : [
+    {
+      "identity" : "cachecow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywardell/CacheCow",
+      "state" : {
+        "revision" : "fdce10476bfbf6ee4d704c10795802c7efe32f6e",
+        "version" : "0.2.2"
+      }
+    },
+    {
+      "identity" : "networkretrievers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywardell/NetworkRetrievers",
+      "state" : {
+        "revision" : "12b81ab9b41e411ef67061f5c150c59835634cb6",
+        "version" : "0.4.0"
+      }
+    },
     {
       "identity" : "tagurit",
       "kind" : "remoteSourceControl",
