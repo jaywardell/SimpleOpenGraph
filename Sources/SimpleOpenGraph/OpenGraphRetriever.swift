@@ -12,11 +12,11 @@ public actor OpenGraphRetriever {
               
     public static let fetcher = OpenGraphRetriever()
     
-    public func retrieveOpenGraph(at url: URL) async throws -> OpenGraph {
+    public func retrieveOpenGraph(at url: URL, logging: Bool = false) async throws -> OpenGraph {
         
         do {
             let source = try await StringRetriever.retrieveString(from: url)
-            return try OpenGraph(html: source)
+            return try OpenGraph(html: source, verboseErrorLogging: logging)
         }
         catch {
             print("Error loading OpenGraph for page at \(url)")

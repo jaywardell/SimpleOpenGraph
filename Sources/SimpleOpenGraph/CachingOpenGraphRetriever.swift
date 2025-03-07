@@ -13,12 +13,17 @@ public final class CachingOpenGraphRetriever {
     
     private let archiver: CacheArchiver
     private let cache: Cache<URL, OpenGraph>
-    let logDuplicateLoads: Bool
+    
+    public struct TestingParameters {
+        let logHTMLSource: Bool
+        let logDuplicateLoads: Bool
+    }
+    let testing: TestingParameters?
     
     public init(
         name: String,
         appGroupID: String? = nil,
-        logDuplicateLoads: Bool = false
+        testing: TestingParameters? = nil
     ) {
         self.archiver = CacheArchiver(name: name, groupID: appGroupID)
         
@@ -30,7 +35,7 @@ public final class CachingOpenGraphRetriever {
             self.cache = Cache()
         }
         
-        self.logDuplicateLoads = logDuplicateLoads
+        self.testing = testing
     }
     
     private var retrievedURLs = Set<URL>()
@@ -41,17 +46,17 @@ public final class CachingOpenGraphRetriever {
             return cached
         }
         
-        if logDuplicateLoads && retrievedURLs.contains(url) {
+        if true == testing?.logDuplicateLoads && retrievedURLs.contains(url) {
             // this is a class, so it's not isolated
             // so we could theoretically get multiple requests to retrieve the same URL
             // if that happens, log it so that we can know in testing
             Logger.opengraphRetrieval.warning("retrieved url \(url.absoluteString) for a second time")
         }
         
-        let retrieved = try await OpenGraphRetriever.fetcher.retrieveOpenGraph(at: url)
+        let retrieved = try await OpenGraphRetriever.fetcher.retrieveOpenGraph(at: url, logging: true == testing?.logHTMLSource)
         cache.insert(retrieved, for: url)
         
-        if logDuplicateLoads {
+        if true == testing?.logDuplicateLoads {
             retrievedURLs.insert(url)
         }
         

@@ -58,9 +58,7 @@ public struct OpenGraph: Equatable, Codable, Sendable {
         let tags: [(String, String)] = MetaTag.all(in: html)
             .map { tag in
                 if verboseErrorLogging {
-                    #if DEBUG
                     print(tag)
-                    #endif
                 }
                 let property = tag.attribute(for: "property")
                 let og = property?.value
@@ -78,9 +76,7 @@ public struct OpenGraph: Equatable, Codable, Sendable {
         catch {
             print("Error creating OpenGraph instance: \(error.localizedDescription)")
             if verboseErrorLogging {
-                #if DEBUG
                 print(html)
-                #endif
             }
             throw error
         }
