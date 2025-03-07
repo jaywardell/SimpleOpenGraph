@@ -19,8 +19,13 @@ let package = Package(
             targets: ["SimpleOpenGraph"]),
     ],
     dependencies: [
+        // to parse meta tags from html:
         .package(url: "https://github.com/jaywardell/TagUrIt", .upToNextMajor(from: "0.1.0")),
+        
+        // to retrieve html source over the nework
         .package(url: "https://github.com/jaywardell/NetworkRetrievers", .upToNextMajor(from: "0.4.0")),
+        
+        // to cache retrieved opengraph data
         .package(url: "https://github.com/jaywardell/CacheCow", .upToNextMajor(from: "0.2.0")),
     ],
     targets: [
